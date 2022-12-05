@@ -335,10 +335,15 @@ public class ReadingDAO {
         //Auto increment the ID.
         int id = reading.getId();
         while (getReading(id) != null) {
-            lastReading = getReading(id);
             id++;
         }
-        if(lastReading != null && !lastReading.getNotes().equals("")  && lastReading.getNotes().equals(reading.getNotes())){
+
+        List<Reading> patientData = getAllReadingsOfPatient(reading.getPatient_num());
+        if (patientData.size() > 0) {
+            lastReading = patientData.get(patientData.size() - 1);
+        }
+
+        if(lastReading != null && lastReading.getLaterality().equals("BILATERAL")  && lastReading.getNotes().equals("BILATERAL1")){
             return id-1;
         }else {
             reading.setId(id);
@@ -393,6 +398,9 @@ public class ReadingDAO {
             //Updates the date
             reading.setDate_created(date.toString());
             //reading_id = reading.getId();
+            if (reading.getLaterality().equals("BILATERAL")) {
+                reading.setNotes("BILATERAL1");
+            }
             return insertReading(sql, reading.getPatient_num(), date.toString(), reading.getLaterality(), reading.getNotes());
         }
 
