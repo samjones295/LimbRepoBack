@@ -10,7 +10,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-@CrossOrigin(originPatterns = "*", methods = {RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*", allowCredentials = "true",methods = {RequestMethod.GET, RequestMethod.POST})
 @RestController
 @RequestMapping("/api/")
 public class ResultDAO {

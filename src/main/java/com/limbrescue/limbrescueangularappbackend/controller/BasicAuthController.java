@@ -3,9 +3,9 @@ import com.limbrescue.limbrescueangularappbackend.model.AuthenticationBean;
 import org.springframework.web.bind.annotation.*;
 
 //Port number 8081
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*", allowCredentials = "true")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/auth")
 public class BasicAuthController {
     /**
      * Authorizes the login.
@@ -13,7 +13,8 @@ public class BasicAuthController {
      * @return
      *          The authentication bean.
      */
-    @GetMapping(path = "/basicauth")
+    //@GetMapping(path = "/basicauth")
+    @PostMapping("/signin")
     public AuthenticationBean helloWorldBean() {
         return new AuthenticationBean("You are authenticated");
     }
